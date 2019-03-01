@@ -1,49 +1,49 @@
   "use strict;"
 
-  // ---- global variables ---- //
-  var WINS = 0;
-  var LOSSES = 0;
-  var LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  // ---- constants ---- //
+  const MAX_CHANCES = 6;
 
-  var WORDS = [{
+  const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+  const WORDS_ARR = [{
     word: "giraffe",
     clue: "Has a long neck.",
+    blanksArr: ['_', '_', '_', '_', '_', '_', '_']
   }, {
     word: "zebra",
     clue: "Looks like a horse with stripes.",
+    blanksArr: ['_', '_', '_', '_', '_']
   }, {
     word: "tiger",
     clue: "Striped wild cat.",
+    blanksArr: ['_', '_', '_', '_', '_']
   }];
 
+  // global variables
+  var gWins = 0;
+  var gLosses = 0;
+  var gIndex = 0;
+  var gChances = MAX_CHANCES;
+  var gGuessed = "";
+  var gWord = newWord();
+
   // initialize game
-  var WINS = 0;
-  var LOSSES = 0;
+  document.getElementById("wins").textContent = gWins;
+  document.getElementById("losses").textContent = gLosses;
+  document.getElementById("chances").textContent = gChances;
+  document.getElementById("guessed").textContent = gGuessed;
+  document.getElementById("word").textContent = gWord.word;
+  document.getElementById("clue").textContent = gWord.clue;
+  document.getElementById("blanks").textContent = gWord.blanksArr.join(" ");
 
-  // Loop through list of words. 
-  // For each word in the list: 
-  //    A word and clue is displayed.
-  //    User types letters to solve the puzzle.
-  //    The maximum number of errors allowed is 6.
+  // newWord(): get the current word from WORDS_ARR and increment gIndex
+  function newWord() {
 
-  console.log(WORDS.length);
-  var i = 0;
-
-  //ffor (var i = 0; i < WORDS.length; i++) {
-  var word = WORDS[i].word;
-  var clue = WORDS[i].clue;
-  var numWrong = 0; // this gets tracked internally
-  var guessed = "";
-  var message = "";
-
-  var winsSpan = document.getElementById("wins").textContent = WINS;
-  var lossesSpan = document.getElementById("losses").textContent = LOSSES;
-  var wrongSpan = document.getElementById("num-wrong").textContent = numWrong;
-  var clueSpan = document.getElementById("clue").textContent = clue;
-
-  // initialize blanks
-  function displayBlanks(word) {
-
+    var word = {
+      word: WORDS_ARR[gIndex].word,
+      clue: WORDS_ARR[gIndex].clue,
+      blanksArr: WORDS_ARR[gIndex].blanksArr
+    }
+    gIndex++;
+    return word;
   }
-
-  // display

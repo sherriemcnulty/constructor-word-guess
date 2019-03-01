@@ -10,8 +10,22 @@ body {
     /* overflow prevents the layout from shifting to accomodate for the scrollbar */
 }
 
+form {
+    width: 70%;
+}
+
+entry {
+    width: 30%;
+    border: none;
+
+}
+
 h1 {
     text-align: center;
+}
+
+label {
+    font-weight: bold;
 }
 
 /* classes */
