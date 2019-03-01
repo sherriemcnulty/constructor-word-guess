@@ -36,6 +36,12 @@
   document.getElementById("clue").textContent = gWord.clue;
   document.getElementById("blanks").textContent = gWord.blanksArr.join(" ");
 
+  // the action happens here . . .
+  document.onkeyup = function (event) {
+    var key = event.key;
+    alert(key + " was pressed.");
+  };
+
   // newWord(): get the current word from WORDS_ARR and increment gIndex
   function newWord() {
 
