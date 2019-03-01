@@ -1,0 +1,31 @@
+/* Word Game Stylesheet */
+
+/* elements */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    /* overflow prevents the layout from shifting to accomodate for the scrollbar */
+}
+
+h1 {
+    text-align: center;
+}
+
+/* classes */
+.bold {
+    font-weight: bold;
+}
+
+/* id's */
+#content {
+    width: 75%;
+    margin: auto;
+}
+
+#message {
+    color: red;
+    border: 1px solid black;
+}
