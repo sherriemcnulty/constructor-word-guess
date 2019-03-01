@@ -24,23 +24,44 @@
   var gLosses = 0;
   var gIndex = 0;
   var gChances = MAX_CHANCES;
-  var gGuessed = "";
+  var gGuessedLtrs = "";
   var gWord = newWord();
 
   // initialize game
   document.getElementById("wins").textContent = gWins;
   document.getElementById("losses").textContent = gLosses;
   document.getElementById("chances").textContent = gChances;
-  document.getElementById("guessed").textContent = gGuessed;
+  document.getElementById("guessed").textContent = gGuessedLtrs;
   document.getElementById("word").textContent = gWord.word;
   document.getElementById("clue").textContent = gWord.clue;
   document.getElementById("blanks").textContent = gWord.blanksArr.join(" ");
 
   // the action happens here . . .
   document.onkeyup = function (event) {
+
     var key = event.key;
+
     alert(key + " was pressed.");
-  };
+
+    /***************** I AM HERE *******************
+  if (isInGuessedLtrs()) {
+    display message "Already selected";
+    return;
+  } 
+
+  if (isInWord(key)) {
+    update blanks;
+    check blanks
+    if(no blanks left) {
+      increment wins
+      get new word
+    }
+  } else {  // letter not in word
+    decrement chances;
+  }
+*****************************************************/
+
+  }; // end onkeyup() 
 
   // newWord(): get the current word from WORDS_ARR and increment gIndex
   function newWord() {
@@ -52,4 +73,5 @@
     }
     gIndex++;
     return word;
-  }
+
+  } // end newWord()
