@@ -2,76 +2,106 @@
 
   // ---- constants ---- //
   const MAX_CHANCES = 6;
-
-  const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-  const WORDS_ARR = [{
+  const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const WORDS = [{
     word: "giraffe",
     clue: "Has a long neck.",
-    blanksArr: ['_', '_', '_', '_', '_', '_', '_']
+    blanks: ['_', '_', '_', '_', '_', '_', '_']
   }, {
     word: "zebra",
     clue: "Looks like a horse with stripes.",
-    blanksArr: ['_', '_', '_', '_', '_']
+    blanks: ['_', '_', '_', '_', '_']
   }, {
     word: "tiger",
     clue: "Striped wild cat.",
-    blanksArr: ['_', '_', '_', '_', '_']
+    blanks: ['_', '_', '_', '_', '_']
   }];
 
-  // global variables
-  var gWins = 0;
-  var gLosses = 0;
-  var gIndex = 0;
-  var gChances = MAX_CHANCES;
-  var gGuessedLtrs = "";
-  var gWord = newWord();
+  // variables
+  var index = 0;
+  var wins = 0;
+  var losses = 0;
+  var numChances;
+  var usedLtrs;
+  var thisWord;
 
-  // initialize game
-  document.getElementById("wins").textContent = gWins;
-  document.getElementById("losses").textContent = gLosses;
-  document.getElementById("chances").textContent = gChances;
-  document.getElementById("guessed").textContent = gGuessedLtrs;
-  document.getElementById("word").textContent = gWord.word;
-  document.getElementById("clue").textContent = gWord.clue;
-  document.getElementById("blanks").textContent = gWord.blanksArr.join(" ");
+  document.getElementById("game").style.display = "none";
+  document.getElementById("msg").textContent = "Press any key to begin!";
+
+
 
   // the action happens here . . .
   document.onkeyup = function (event) {
 
     var key = event.key;
 
-    alert(key + " was pressed.");
+    console.log(key + " was pressed.");
 
-    /***************** I AM HERE *******************
-  if (isInGuessedLtrs()) {
-    display message "Already selected";
-    return;
-  } 
+    if (index === 0) { // start game
 
-  if (isInWord(key)) {
-    update blanks;
-    check blanks
-    if(no blanks left) {
-      increment wins
-      get new word
+      newWord(index++);
+      document.getElementById("msg").style.display = "none"; // hide startup message
+      document.getElementById("game").style.display = "block"; // display scoreboard
+      displayElement("wins", wins);
+      displayElement("losses", losses);
+      displayElement("chances", numChances);
+      displayElement("clue", thisWord.clue);
+      displayElement("blanks", thisWord.blanks.join(" "));
+
+    } else {
+
+      if (LETTERS.indexOf(key) === -1) {
+
+        console.log("'" + key + "' is not a letter");
+        alert("'" + key + "' is not a letter");
+
+      } else {
+
+        console.log("'" + key + "' is a letter.");
+        var letter = key.toLowerCase();
+
+        if (usedLtrs.indexOf(letter) < 0) {
+
+          console.log("'" + letter + "' has NOT been used.");
+
+          if (thisWord.word.indexOf(letter) >= 0) { // letter is in the word
+
+            console.log("'" + letter + "' is in the word.");
+            //insertLetter(letter);
+
+          } else {
+
+            console.log("'" + key + "' is NOT in '" + thisWord.word + "'")
+            numChances--;
+            displayElement("chances", --numChances);
+          }
+
+        } else {
+          console.log("'" + letter + "' has been used.");
+          alert("'" + letter + "' has been used.");
+        }
+
+
+      }
     }
-  } else {  // letter not in word
-    decrement chances;
-  }
-*****************************************************/
-
   }; // end onkeyup() 
 
-  // newWord(): get the current word from WORDS_ARR and increment gIndex
-  function newWord() {
 
-    var word = {
-      word: WORDS_ARR[gIndex].word,
-      clue: WORDS_ARR[gIndex].clue,
-      blanksArr: WORDS_ARR[gIndex].blanksArr
+  /*****  FUNCTIONS *****/
+
+  function newWord(i) {
+    // retrieve new word and reset tracking
+
+    usedLtrs = "";
+    numChances = MAX_CHANCES;
+    thisWord = {
+      word: WORDS[i].word,
+      clue: WORDS[i].clue,
+      blanks: WORDS[i].blanks
     }
-    gIndex++;
-    return word;
-
   } // end newWord()
+
+  function displayElement(which, str) {
+    // make it easy to display elements
+    document.getElementById(which).textContent = str;
+  }

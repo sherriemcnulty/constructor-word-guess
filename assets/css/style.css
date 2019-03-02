@@ -1,26 +1,22 @@
 /* Word Game Stylesheet */
 
-/* elements */
+/* element */
 html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
+    /* prevents shifting for scrollbar */
     overflow: auto;
-    /* overflow prevents the layout from shifting to accomodate for the scrollbar */
 }
 
-form {
-    width: 70%;
-}
-
-entry {
+input {
     width: 30%;
-    border: none;
-
 }
 
-h1 {
+h1,
+h2,
+h3 {
     text-align: center;
 }
 
@@ -28,18 +24,28 @@ label {
     font-weight: bold;
 }
 
-/* classes */
+p {
+    font-size: x-large;
+}
+
+/* class */
 .bold {
     font-weight: bold;
 }
 
-/* id's */
-#content {
-    width: 75%;
+/* id */
+#blanks {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+#container {
+    width: 66%;
     margin: auto;
 }
 
-#message {
+#msg {
+    text-align: center;
+    font-size: 1.2em;
     color: red;
-    border: 1px solid black;
 }

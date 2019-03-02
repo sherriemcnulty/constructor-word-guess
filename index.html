@@ -19,34 +19,40 @@
 
 <body>
 
-     <h1>Hangman</h1>
+     <h1>Word Guess Game</h1>
+     <h2>Animals</h2>
 
-     <section id="content">
-          <div id="message" class="bold"></div>
+     <section id="container">
 
-          <form>
-               <label class="bold">Wins: </label>
-               <entry id="wins"></entry>
-               <br>
-               <label class="bold">Losses: </label>
-               <entry id="losses"></entry>
-               <br>
-               <label class="bold">Chances: </label>
-               <entry id="chances"></entry>
-               <br>
-               <label class="bold">Guessed: </label>
-               <entry id="guessed"></entry>
-               <br>
-               <label class="bold">Word: </label>
-               <entry id="word"></entry>
-               <br>
-               <label class="bold">Blanks: </label>
-               <entry id="blanks"></entry>
-               <br>
-               <label class="bold">Clue: </label>
-               <spentryan id="clue">
-                    </entry>
-          </form>
+          <div id="game">
+               <p>
+                    <span class="bold">Wins: </span>
+                    <span id="wins"></span>
+               </p>
+               <p>
+                    <span class="bold">Losses: </span>
+                    <span id="losses"></span>
+               </p>
+               <p>
+                    <span class="bold">Letters Already Guessed: </span>
+                    <span id="used"></span>
+               </p>
+               <p>
+                    <span class="bold">Number of Guesses Remaining: </span>
+                    <span id="chances"></span>
+               </p>
+
+               <p>
+                    <span class="bold">Clue: </span>
+                    <span id="clue"></span]>
+               </p>
+               <p>
+                    <span class="bold">Word: </span>
+                    <span id="blanks"></span> <!-- this starts as blanks -->
+               </p>
+          </div>
+
+          <p id="msg" class="bold"></p>
 
      </section>
 
