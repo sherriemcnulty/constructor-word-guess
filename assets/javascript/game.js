@@ -1,36 +1,35 @@
   "use strict;"
 
-  // ---- constants ---- //
+  // CONSTANTS 
   const MAX_CHANCES = 6;
   const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const WORDS = [{
-    word: "giraffe",
+    word: "GIRAFFE",
     clue: "Has a long neck.",
     blanks: ['_', '_', '_', '_', '_', '_', '_']
   }, {
-    word: "zebra",
+    word: "ZEBRA",
     clue: "Looks like a horse with stripes.",
     blanks: ['_', '_', '_', '_', '_']
   }, {
-    word: "tiger",
+    word: "TIGER",
     clue: "Striped wild cat.",
     blanks: ['_', '_', '_', '_', '_']
   }];
 
-  // variables
+  // VARIABLES
   var index = 0;
   var wins = 0;
   var losses = 0;
-  var numChances;
-  var usedLtrs;
+  var numChances; 
+  var usedLtrs; 
   var thisWord;
 
+  // INITIAL DISPLAY
   document.getElementById("game").style.display = "none";
   document.getElementById("msg").textContent = "Press any key to begin!";
 
-
-
-  // the action happens here . . .
+  // THIS IS WHERE THE ACTION IS . . .
   document.onkeyup = function (event) {
 
     var key = event.key;
@@ -39,69 +38,87 @@
 
     if (index === 0) { // start game
 
-      newWord(index++);
+      console.log("Initialize game.");
+      newWord(index);
       document.getElementById("msg").style.display = "none"; // hide startup message
       document.getElementById("game").style.display = "block"; // display scoreboard
-      displayElement("wins", wins);
-      displayElement("losses", losses);
-      displayElement("chances", numChances);
-      displayElement("clue", thisWord.clue);
-      displayElement("blanks", thisWord.blanks.join(" "));
+      displayIdElement("wins", wins);
+      displayIdElement("losses", losses);
+      displayIdElement("chances", numChances);
+      displayIdElement("clue", thisWord.clue);
+      displayIdElement("blanks", thisWord.blanks.join(" "));
 
     } else {
 
       if (LETTERS.indexOf(key) === -1) {
 
-        console.log("'" + key + "' is not a letter");
+        console.log("'" + key + "' is not a letter"); //////////////////
         alert("'" + key + "' is not a letter");
 
       } else {
 
-        console.log("'" + key + "' is a letter.");
-        var letter = key.toLowerCase();
+        console.log("'" + key + "' is a letter."); //////////////////
+        var letter = key.toUpperCase();
 
         if (usedLtrs.indexOf(letter) < 0) {
 
-          console.log("'" + letter + "' has NOT been used.");
+          console.log("'" + letter + "' has NOT been used."); ///////////////
+          usedLtrs += letter;
 
-          if (thisWord.word.indexOf(letter) >= 0) { // letter is in the word
+          if (thisWord.word.indexOf(letter) >= 0) {
 
             console.log("'" + letter + "' is in the word.");
-            //insertLetter(letter);
+            insertLetter(letter);
 
           } else {
 
-            console.log("'" + key + "' is NOT in '" + thisWord.word + "'")
-            numChances--;
-            displayElement("chances", --numChances);
+            console.log("'" + key + "' is NOT in '" + thisWord.word + "'"); ///////////////////
+            displayIdElement("chances", --numChances);
           }
 
         } else {
-          console.log("'" + letter + "' has been used.");
+          console.log("'" + letter + "' has been used."); //////////////////////
           alert("'" + letter + "' has been used.");
         }
-
-
       }
     }
   }; // end onkeyup() 
 
-
   /*****  FUNCTIONS *****/
 
-  function newWord(i) {
+  function displayIdElement(which, str) {
+    // make it easy to display elements
+
+    document.getElementById(which).textContent = str;
+
+  } // end displayElement()
+
+  function insertLetter(ltr) {
+
+    var wordArr = thisWord.word.split("");
+    var length = wordArr.length;
+
+    for (var i = 0; i < length; i++) {
+
+      if (ltr === wordArr[i]) {
+
+        thisWord.blanks[i] = ltr;
+      }
+    }
+
+    displayIdElement("blanks", thisWord.blanks.join(" "));
+
+  } // end insertLetter()
+
+  function newWord() {
     // retrieve new word and reset tracking
 
     usedLtrs = "";
     numChances = MAX_CHANCES;
+
     thisWord = {
-      word: WORDS[i].word,
-      clue: WORDS[i].clue,
-      blanks: WORDS[i].blanks
+      word: WORDS[index].word,
+      clue: WORDS[index].clue,
+      blanks: WORDS[index++].blanks
     }
   } // end newWord()
-
-  function displayElement(which, str) {
-    // make it easy to display elements
-    document.getElementById(which).textContent = str;
-  }
