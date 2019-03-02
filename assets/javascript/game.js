@@ -21,8 +21,8 @@
   var index = 0;
   var wins = 0;
   var losses = 0;
-  var numChances; 
-  var usedLtrs; 
+  var numChances;
+  var usedLtrs;
   var thisWord;
 
   // INITIAL DISPLAY
@@ -44,10 +44,6 @@
       document.getElementById("game").style.display = "block"; // display scoreboard
       displayIdElement("wins", wins);
       displayIdElement("losses", losses);
-      displayIdElement("chances", numChances);
-      displayIdElement("clue", thisWord.clue);
-      displayIdElement("blanks", thisWord.blanks.join(" "));
-
     } else {
 
       if (LETTERS.indexOf(key) === -1) {
@@ -70,10 +66,22 @@
             console.log("'" + letter + "' is in the word.");
             insertLetter(letter);
 
+            if (isWon()) {
+
+              console.log("You won!");
+              alert("You won!");
+              displayIdElement("wins", ++wins);
+              newWord();
+            }
+
           } else {
 
             console.log("'" + key + "' is NOT in '" + thisWord.word + "'"); ///////////////////
             displayIdElement("chances", --numChances);
+            if (numChances === 0) {
+              alert("You lose!");
+              newWord();
+            }
           }
 
         } else {
@@ -110,15 +118,36 @@
 
   } // end insertLetter()
 
+  function isWon() {
+    // determine whether the user guessed the word
+
+    for (var i = 0; i < thisWord.blanks.length; i++) {
+
+      console.log("isWon(): i=" + i + "thisWord.blanks[i]=" + thisWord.blanks[i]);
+      if (thisWord.blanks[i] === '_') {
+
+        return false;
+      }
+    }
+    return true;
+  }
+
   function newWord() {
     // retrieve new word and reset tracking
 
-    usedLtrs = "";
-    numChances = MAX_CHANCES;
+    if (index < WORDS.length) {
+      usedLtrs = "";
+      numChances = MAX_CHANCES;
+      thisWord = {
+        word: WORDS[index].word,
+        clue: WORDS[index].clue,
+        blanks: WORDS[index++].blanks
+      }
 
-    thisWord = {
-      word: WORDS[index].word,
-      clue: WORDS[index].clue,
-      blanks: WORDS[index++].blanks
+      displayIdElement("chances", numChances);
+      displayIdElement("clue", thisWord.clue);
+      displayIdElement("blanks", thisWord.blanks.join(" "));
+    } else {
+      alert("Game over!");
     }
   } // end newWord()
