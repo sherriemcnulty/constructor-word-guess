@@ -30,6 +30,7 @@
       console.log("inside newWord()")
       // retrieve new word and reset tracking
       if (this.index < WORDS.length) {
+
         this.usedLetters = "";
         this.numChances = MAX_CHANCES;
         this.currentWord = {
@@ -38,10 +39,14 @@
           blanks: WORDS[this.index++].blanks
         }
         displayIdElement("chances", this.numChances);
+        displayIdElement("used-letters", "");
         displayIdElement("clue", this.currentWord.clue);
         displayIdElement("blanks", this.currentWord.blanks.join(" "));
       } else {
-        alert("Game over!");
+        console.log("Game over!"); /////////// kaboom
+        document.getElementById("message").style.display = "block";
+        document.getElementById("game").style.display = "none";
+        displayIdElement("message", "Game over!");
       }
     },
 
@@ -79,6 +84,9 @@
 
   // INITIAL DISPLAY
   document.getElementById("game").style.display = "none";
+  document.getElementById("message").style.display = "block";
+  displayIdElement("message", "Press any key to start!");
+
 
   // THIS IS WHERE THE ACTION IS . . .
   document.onkeyup = function (event) {
@@ -91,7 +99,7 @@
 
       console.log("Initialize game.");
       game.newWord();
-      document.getElementById("start-message").style.display = "none"; // hide startup message
+      document.getElementById("message").style.display = "none"; // hide startup message
       document.getElementById("game").style.display = "block"; // display scoreboard
       displayIdElement("wins", game.wins);
       displayIdElement("losses", game.losses);
@@ -111,6 +119,7 @@
 
           console.log("'" + letter + "' has NOT been used.");
           game.usedLetters += letter;
+          displayIdElement("used-letters", game.usedLetters);
 
           if (game.currentWord.word.indexOf(letter) >= 0) {
 
@@ -120,7 +129,6 @@
             if (game.isWon()) {
 
               console.log("You won!");
-              alert("You won!");
               displayIdElement("wins", ++game.wins);
               game.newWord();
             }
@@ -130,7 +138,7 @@
             console.log("'" + key + "' is NOT in '" + game.currentWord.word + "'");
             displayIdElement("chances", --game.numChances);
             if (game.numChances === 0) {
-              alert("You lose!");
+              console.log("You lost!");
               game.newWord();
             }
           }
