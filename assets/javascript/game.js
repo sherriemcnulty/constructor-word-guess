@@ -46,7 +46,7 @@
       } else {
         console.log("Game over!");
         displayIdElement("message", "Game over! Wins: " + this.wins + ", Losses: " + this.losses);
-        document.getElementById("game").style.display = "none";
+        document.getElementById("game-box").style.display = "none";
       }
     },
 
@@ -127,7 +127,7 @@
 
 
   // INITIAL DISPLAY
-  document.getElementById("game").style.display = "none";
+  document.getElementById("game-box").style.display = "none";
   document.getElementById("message").style.display = "block";
   displayIdElement("message", "Press any key to start!");
 
@@ -144,7 +144,7 @@
 
       // first word -> initialize the game
       game.newWord();
-      document.getElementById("game").style.display = "block";
+      document.getElementById("game-box").style.display = "block";
       displayIdElement("wins", game.wins);
       displayIdElement("losses", game.losses);
     } else {

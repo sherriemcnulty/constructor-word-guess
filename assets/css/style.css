@@ -26,20 +26,12 @@ label {
     font-weight: bold;
 }
 
-p {
-    font-size: large;
-}
-
 /* class */
 .bold {
     font-weight: bold;
 }
 
 /* id */
-#blanks {
-    font-size: large;
-}
-
 #container {
     width: 66%;
     margin: 5% auto;
@@ -47,35 +39,27 @@ p {
     background: wheat;
 }
 
+#game-box {
+    margin: auto;
+    padding: 5%;
+    width: 66%;
+}
+
 #message {
     margin-top: 2%;
     height: 1.2em;
-    text-align: center;
-    font-weight: bold;
     color: red;
 }
 
 @media screen and (max-width: 980px) {
-    body {
-        font-size: large;
-    }
 
-    p,
-    #blanks {
-        font-size: large;
+    body {
+        font-size: medium;
     }
 
 }
 
 @media screen and (max-width: 768px) {
-    body {
-        font-size: 0.8em;
-    }
-
-    p,
-    #blanks {
-        font-size: medium;
-    }
 
     #container {
         width: 90%;
@@ -86,15 +70,7 @@ p {
 
 @media screen and (max-width: 640px) {
     body {
-        font-size: 0.8em;
-    }
-
-    p {
-        font-size: medium;
-    }
-
-    #blanks {
-        font-size: medium;
+        font-size: small;
     }
 
     #container {
