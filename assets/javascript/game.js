@@ -26,27 +26,20 @@
     usedLetters: "",
     currentWord: "",
 
-    newWord: function () {
-      console.log("inside newWord()")
+    newWord: function (i) {
       // retrieve new word and reset tracking
-      if (this.index < WORDS.length) {
-
+      if (i < WORDS.length) {
         this.usedLetters = "";
         this.numChances = MAX_CHANCES;
         this.currentWord = {
-          word: WORDS[this.index].word,
-          clue: WORDS[this.index].clue,
-          blanks: WORDS[this.index++].blanks
+          word: WORDS[i].word,
+          clue: WORDS[i].clue,
+          blanks: WORDS[i].blanks
         }
-        displayIdElement("message", "");
         displayIdElement("chances", this.numChances);
         displayIdElement("used-letters", "");
         displayIdElement("clue", this.currentWord.clue);
         displayIdElement("blanks", this.currentWord.blanks.join(" "));
-      } else {
-        console.log("Game over!");
-        displayIdElement("message", "Game over! Wins: " + this.wins + ", Losses: " + this.losses);
-        document.getElementById("game-box").style.display = "none";
       }
     },
 
@@ -74,7 +67,7 @@
             console.log("You won!");
             displayIdElement("message", "You won!");
             displayIdElement("wins", ++this.wins);
-            this.newWord();
+            this.newWord(this.index++);
           }
 
         } else {
@@ -87,7 +80,7 @@
             console.log("You lost!");
             displayIdElement("message", "You lost!");
             displayIdElement("losses", ++this.losses);
-            this.newWord();
+            this.newWord(this.index++);
 
           }
         }
@@ -115,7 +108,6 @@
 
       for (var i = 0; i < this.currentWord.blanks.length; i++) {
 
-        console.log("isWon(): i=" + i + "currentWord.blanks[i]=" + this.currentWord.blanks[i]);
         if (this.currentWord.blanks[i] === '_') {
 
           return false;
@@ -140,20 +132,23 @@
     console.log(key + " was pressed.");
     displayIdElement("message", "");
 
-    if (game.index === 0) {
-
-      // first word -> initialize the game
-      game.newWord();
+    if (game.index === 0) { // first word
+      game.newWord(game.index++);
       document.getElementById("game-box").style.display = "block";
       displayIdElement("wins", game.wins);
       displayIdElement("losses", game.losses);
-    } else {
 
+    } else if (game.index > WORDS.length) { // game over
+      console.log("Game over!");
+      displayIdElement("message", "Game over! Wins: " + game.wins + ", Losses: " + game.losses);
+      document.getElementById("game-box").style.display = "none";
+
+    } else {
       if (LETTERS.indexOf(key) === -1) {
         console.log("'" + key + "' is not a letter");
         displayIdElement("message", "'" + key + "' is not a letter");
-      } else { // key is a letter
 
+      } else { // key is a letter
         game.processLetter(key);
       }
     }
