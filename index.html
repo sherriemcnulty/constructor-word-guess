@@ -9,22 +9,27 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-     <!-- normalize the viewport for browser consistency -->
+     <!-- normalize the viewport for cross-browser consistency -->
      <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
 
-     <!-- Custom styles -->
+     <!-- custom styles -->
      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
 
 <body>
 
-     <h1>Word Guess Game</h1>
-     <h2>Animals</h2>
-
      <section id="container">
 
+          <h1>Word Guess Game</h1>
+          <h2>Animals</h2>
+          <p id="start-message">Press any key to start!</p>
+
+          <p id="message" class="bold">
+          </p>
+
           <div id="game">
+
                <p>
                     <span class="bold">Wins: </span>
                     <span id="wins"></span>
@@ -48,11 +53,9 @@
                </p>
                <p>
                     <span class="bold">Word: </span>
-                    <span id="blanks"></span> <!-- this starts as blanks -->
+                    <span id="blanks"></span>
                </p>
           </div>
-
-          <p id="msg" class="bold"></p>
 
      </section>
 
