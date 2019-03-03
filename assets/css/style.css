@@ -37,6 +37,7 @@ label {
     margin: 5% auto;
     padding: 2%;
     background: wheat;
+    border: 3px inset lightgreen;
 }
 
 #game-box {

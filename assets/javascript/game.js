@@ -43,49 +43,6 @@
       }
     },
 
-    processLetter: function (letter) {
-
-      var letter = letter.toUpperCase();
-
-      if (this.usedLetters.indexOf(letter) !== -1) {
-        // letter has been used
-        console.log("'" + letter + "' has been used.");
-        displayIdElement("message", "'" + letter + "' has been used.");
-      } else {
-        // letter has not been used
-        console.log("'" + letter + "' has NOT been used.");
-        this.usedLetters += letter;
-        displayIdElement("used-letters", this.usedLetters);
-
-        if (this.currentWord.word.indexOf(letter) >= 0) {
-          // letter is in the word
-          console.log("'" + letter + "' is in the word.");
-          this.insertLetter(letter);
-
-          if (this.isWon()) {
-            // if no more blanks, user wins
-            console.log("You won!");
-            displayIdElement("message", "You won!");
-            displayIdElement("wins", ++this.wins);
-            this.newWord(this.index++);
-          }
-
-        } else {
-          // letter is not in the word
-          console.log("'" + letter + "' is NOT in '" + this.currentWord.word + "'");
-          displayIdElement("chances", --this.numChances);
-
-          if (this.numChances === 0) {
-            // if chances are used up, user lost
-            console.log("You lost!");
-            displayIdElement("message", "You lost!");
-            displayIdElement("losses", ++this.losses);
-            this.newWord(this.index++);
-
-          }
-        }
-      }
-    }, // processLetter()
 
     insertLetter: function (letter) {
 
@@ -149,7 +106,48 @@
         displayIdElement("message", "'" + key + "' is not a letter");
 
       } else { // key is a letter
-        game.processLetter(key);
+
+        var letter = key;
+        letter = letter.toUpperCase();
+
+        if (game.usedLetters.indexOf(letter) !== -1) {
+          // letter has been used
+          console.log("'" + letter + "' has been used.");
+          displayIdElement("message", "'" + letter + "' has been used.");
+        } else {
+          // letter has not been used
+          console.log("'" + letter + "' has NOT been used.");
+          game.usedLetters += letter;
+          displayIdElement("used-letters", this.usedLetters);
+
+          if (game.currentWord.word.indexOf(letter) >= 0) {
+            // letter is in the word
+            console.log("'" + letter + "' is in the word.");
+            game.insertLetter(letter);
+
+            if (game.isWon()) {
+              // if no more blanks, user wins
+              console.log("You won!");
+              displayIdElement("message", "You won!");
+              displayIdElement("wins", ++game.wins);
+              game.newWord(game.index++);
+            }
+
+          } else {
+            // letter is not in the word
+            console.log("'" + letter + "' is NOT in '" + game.currentWord.word + "'");
+            displayIdElement("chances", --game.numChances);
+
+            if (game.numChances === 0) {
+              // if chances are used up, user lost
+              console.log("You lost!");
+              displayIdElement("message", "You lost!");
+              displayIdElement("losses", ++game.losses);
+              game.newWord(game.index++);
+
+            }
+          }
+        }
       }
     }
   }; // end onkeyup() 
