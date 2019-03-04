@@ -32,6 +32,19 @@
     usedLetters: "",
     currentWord: "",
 
+    init: function () {
+      // The startup message is hidden in the CSS to replace it with a form input to give 
+      // access to a keyboard on cell phones.It needs to be set to 1.0 here to show messages that
+      // are displayed during the game.
+      //
+      document.getElementById("message").style.opacity = "1.0";
+      document.getElementById("startup").style.display = "none";
+      document.getElementById("game-box").style.display = "block";
+      this.newWord(this.index++);
+      displayIdElement("wins", game.wins);
+      displayIdElement("losses", game.losses);
+    }, // init()
+
     insertLetter: function (ltr) {
 
       var wordArr = this.currentWord.word.split("");
@@ -47,13 +60,6 @@
 
       displayIdElement("blanks", this.currentWord.blanks.join(" "));
     }, // insertLetter()
-
-    isInit: function () {
-      if (this.index === 0) {
-        return true;
-      }
-      return false;
-    },
 
     isInWord: function (ltr) {
       if (this.currentWord.word.indexOf(ltr) >= 0) {
@@ -124,7 +130,6 @@
         displayIdElement("blanks", this.currentWord.blanks.join(" "));
       } // if
     }, // newWord()
-
   } // gameObj
 
   // FUNCTIONS
@@ -138,6 +143,7 @@
   // set up initial display
   document.getElementById("game-box").style.display = "none";
   document.getElementById("message").style.display = "block";
+  document.getElementById("game-box").style.display = "none";
   displayIdElement("message", "Press any key to start!");
 
   // listen for key press
@@ -149,20 +155,20 @@
     displayIdElement("message", "");
 
     if (game.isOver()) {
-      // print final score & return if game is over
+      // Print final score & return if game is over.
+      // Note: You must make sure the game isn't over before checking for
+      //   the first key press that starts the game. Otherwise, the first key
+      //   press will be recorded as a used letter before the game starts.   
       //
       document.getElementById("game-box").style.display = "none";
       displayIdElement("message", "Game over!");
       return;
     }
 
-    if (game.isInit()) {
+    if (game.index === 0) {
       // get first word, show play screen & return
       //
-      game.newWord(game.index++);
-      document.getElementById("game-box").style.display = "block";
-      displayIdElement("wins", game.wins);
-      displayIdElement("losses", game.losses);
+      game.init();
       return;
     }
 

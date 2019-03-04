@@ -34,7 +34,7 @@ label {
 /* id */
 #container {
     width: 66%;
-    margin: 5% auto;
+    margin: 10% auto;
     padding: 2%;
     background: wheat;
     border: 3px inset green;
@@ -50,6 +50,10 @@ label {
     margin-top: 1%;
     height: 1.2em;
     color: red;
+}
+
+#startup-input {
+    display: none;
 }
 
 @media screen and (max-width: 980px) {
@@ -77,6 +81,14 @@ label {
     #container {
         width: 100%;
         padding: 1%;
+    }
+
+    #message {
+        opacity: 0.0;
+    }
+
+    #startup {
+        display: block;
     }
 
 }
