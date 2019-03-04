@@ -1,6 +1,7 @@
   "use strict;"
 
   // CONSTANTS 
+
   const MAX_CHANCES = 6;
   const LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const WORDS = [{
@@ -15,9 +16,14 @@
     word: "TIGER",
     clue: "Striped wild cat.",
     blanks: ['_', '_', '_', '_', '_']
+  }, {
+    word: "LION",
+    clue: "Wild cat with a mane.",
+    blanks: ['_', '_', '_', '_']
   }];
 
-  // VARIABLES
+  // GAME OBJECT
+
   var game = gameObj = {
     index: 0,
     wins: 0,
@@ -107,7 +113,11 @@
           clue: WORDS[i].clue,
           blanks: WORDS[i].blanks
         }
-
+        console.log("Begin:");
+        console.log("Index: " + i);
+        console.log("Word: " + this.currentWord.word);
+        console.log("Clue: " + this.currentWord.clue);
+        console.log("Blanks: " + this.currentWord.blanks);
         displayIdElement("chances", this.numChances);
         displayIdElement("used-letters", "");
         displayIdElement("clue", this.currentWord.clue);
@@ -117,12 +127,13 @@
 
   } // gameObj
 
+  // FUNCTIONS
+
   function displayIdElement(which, str) {
     document.getElementById(which).textContent = str;
   } // end displayElement()
 
-
-  // THIS IS WHERE THE ACTION IS . . .
+  // MAIN PROGRAM
 
   // set up initial display
   document.getElementById("game-box").style.display = "none";
@@ -138,12 +149,22 @@
     displayIdElement("message", "");
 
     if (game.isOver()) {
-      // print score & return if game is over
+      // print final score & return if game is over
       //
-      displayIdElement("message", "Game over! Total Wins: " + game.wins + ", Lost: " + game.losses);
       document.getElementById("game-box").style.display = "none";
+      if (game.wins > game.losses) {
+        console.log(game.wins + ">" + game.losses);
+        displayIdElement("message", "You won the match!");
+
+      } else if (game.wins < game.losses) {
+        console.log(game.wins + "<" + game.losses);
+        displayIdElement("message", "You lost the match!");
+      } else {
+        console.log(game.wins + "===" + game.losses);
+        displayIdElement("message", "The match was a tie!");
+      }
       return;
-    } // if game.isOver()
+    }
 
     if (game.isInit()) {
       // get first word, show play screen & return
@@ -174,12 +195,10 @@
 
     /**************************************************************************
      If we got this far, we have a valid letter that has not already been used.
+     Ready to play.
      **************************************************************************/
-
-    console.log("letter = " + letter + ". Proceed with the game.");
-
     game.usedLetters += letter;
-    displayIdElement("used-letters", this.usedLetters);
+    displayIdElement("used-letters", game.usedLetters);
 
     if (game.isInWord(letter)) {
       game.insertLetter(letter);
@@ -192,7 +211,7 @@
         game.newWord(game.index++);
 
       }
-    } else { // letter is not in the word
+    } else {
       displayIdElement("chances", --game.numChances);
       console.log("'" + letter + "' is NOT in '" + game.currentWord.word + "'");
 
