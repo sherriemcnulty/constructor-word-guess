@@ -26,8 +26,79 @@
     usedLetters: "",
     currentWord: "",
 
+    insertLetter: function (ltr) {
+
+      var wordArr = this.currentWord.word.split("");
+      var length = wordArr.length;
+
+      for (var i = 0; i < length; i++) {
+
+        if (ltr === wordArr[i]) {
+
+          this.currentWord.blanks[i] = ltr;
+        }
+      }
+
+      displayIdElement("blanks", this.currentWord.blanks.join(" "));
+    }, // insertLetter()
+
+    isInit: function () {
+      if (this.index === 0) {
+        return true;
+      }
+      return false;
+    },
+
+    isInWord: function (ltr) {
+      if (this.currentWord.word.indexOf(ltr) >= 0) {
+        return true;
+      }
+      return false;
+    }, // isInWord()
+
+    isLost: function () {
+      if (game.numChances === 0) {
+        return true;
+      }
+      return false;
+    }, // isLost()
+
+    isOver: function () {
+      if (game.index > WORDS.length) {
+        return true;
+      }
+      return false;
+    }, // isOver()
+
+    isUsed: function (ltr) {
+      if (this.usedLetters.indexOf(ltr) !== -1) {
+        return true;
+      }
+      return false;
+
+    }, // isUsed()
+
+    isValid: function (ltr) {
+      if (LETTERS.indexOf(ltr) != -1) {
+        return true;
+      }
+      return false;
+    },
+
+    isWon: function () {
+
+      for (var i = 0; i < this.currentWord.blanks.length; i++) {
+
+        if (this.currentWord.blanks[i] === '_') {
+
+          return false;
+        } // if
+      } // for
+      return true;
+    }, // isWon()
+
     newWord: function (i) {
-      // retrieve new word and reset tracking
+
       if (i < WORDS.length) {
         this.usedLetters = "";
         this.numChances = MAX_CHANCES;
@@ -36,52 +107,29 @@
           clue: WORDS[i].clue,
           blanks: WORDS[i].blanks
         }
+
         displayIdElement("chances", this.numChances);
         displayIdElement("used-letters", "");
         displayIdElement("clue", this.currentWord.clue);
         displayIdElement("blanks", this.currentWord.blanks.join(" "));
-      }
-    },
+      } // if
+    }, // newWord()
 
-
-    insertLetter: function (letter) {
-
-      var wordArr = this.currentWord.word.split("");
-      var length = wordArr.length;
-
-      for (var i = 0; i < length; i++) {
-
-        if (letter === wordArr[i]) {
-
-          this.currentWord.blanks[i] = letter;
-        }
-      }
-
-      displayIdElement("blanks", this.currentWord.blanks.join(" "));
-    }, // insertLetter()
-
-    isWon: function () {
-      // determine whether the user guessed the word
-
-      for (var i = 0; i < this.currentWord.blanks.length; i++) {
-
-        if (this.currentWord.blanks[i] === '_') {
-
-          return false;
-        }
-      }
-      return true;
-    } // isWon()
   } // gameObj
 
+  function displayIdElement(which, str) {
+    document.getElementById(which).textContent = str;
+  } // end displayElement()
 
-  // INITIAL DISPLAY
+
+  // THIS IS WHERE THE ACTION IS . . .
+
+  // set up initial display
   document.getElementById("game-box").style.display = "none";
   document.getElementById("message").style.display = "block";
   displayIdElement("message", "Press any key to start!");
 
-
-  // THIS IS WHERE THE ACTION IS . . .
+  // listen for key press
   document.onkeyup = function (event) {
 
     var key = event.key;
@@ -89,74 +137,70 @@
     console.log(key + " was pressed.");
     displayIdElement("message", "");
 
-    if (game.index === 0) { // first word
+    if (game.isOver()) {
+      // print score & return if game is over
+      //
+      displayIdElement("message", "Game over! Total Wins: " + game.wins + ", Lost: " + game.losses);
+      document.getElementById("game-box").style.display = "none";
+      return;
+    } // if game.isOver()
+
+    if (game.isInit()) {
+      // get first word, show play screen & return
+      //
       game.newWord(game.index++);
       document.getElementById("game-box").style.display = "block";
       displayIdElement("wins", game.wins);
       displayIdElement("losses", game.losses);
+      return;
+    }
 
-    } else if (game.index > WORDS.length) { // game over
-      console.log("Game over!");
-      displayIdElement("message", "Game over! Wins: " + game.wins + ", Losses: " + game.losses);
-      document.getElementById("game-box").style.display = "none";
+    if (!game.isValid(key)) {
+      // return if key pressed is not a letter
+      //
+      displayIdElement("message", "'" + key + "' is not a letter.");
+      return;
+    }
 
-    } else {
-      if (LETTERS.indexOf(key) === -1) {
-        console.log("'" + key + "' is not a letter");
-        displayIdElement("message", "'" + key + "' is not a letter");
+    letter = key.toUpperCase();
 
-      } else { // key is a letter
+    if (game.isUsed(letter)) {
+      // return if letter has already been used
+      //
+      game.usedLetters += letter;
+      displayIdElement("message", "'" + letter + "' has been used.");
+      return;
+    }
 
-        var letter = key;
-        letter = letter.toUpperCase();
+    /**************************************************************************
+     If we got this far, we have a valid letter that has not already been used.
+     **************************************************************************/
 
-        if (game.usedLetters.indexOf(letter) !== -1) {
-          // letter has been used
-          console.log("'" + letter + "' has been used.");
-          displayIdElement("message", "'" + letter + "' has been used.");
-        } else {
-          // letter has not been used
-          console.log("'" + letter + "' has NOT been used.");
-          game.usedLetters += letter;
-          displayIdElement("used-letters", this.usedLetters);
+    console.log("letter = " + letter + ". Proceed with the game.");
 
-          if (game.currentWord.word.indexOf(letter) >= 0) {
-            // letter is in the word
-            console.log("'" + letter + "' is in the word.");
-            game.insertLetter(letter);
+    game.usedLetters += letter;
+    displayIdElement("used-letters", this.usedLetters);
 
-            if (game.isWon()) {
-              // if no more blanks, user wins
-              console.log("You won!");
-              displayIdElement("message", "You won!");
-              displayIdElement("wins", ++game.wins);
-              game.newWord(game.index++);
-            }
+    if (game.isInWord(letter)) {
+      game.insertLetter(letter);
+      console.log("'" + letter + "' is in the word.");
 
-          } else {
-            // letter is not in the word
-            console.log("'" + letter + "' is NOT in '" + game.currentWord.word + "'");
-            displayIdElement("chances", --game.numChances);
+      if (game.isWon()) {
+        ++game.wins
+        displayIdElement("wins", game.wins);
+        displayIdElement("message", "You won!");
+        game.newWord(game.index++);
 
-            if (game.numChances === 0) {
-              // if chances are used up, user lost
-              console.log("You lost!");
-              displayIdElement("message", "You lost!");
-              displayIdElement("losses", ++game.losses);
-              game.newWord(game.index++);
+      }
+    } else { // letter is not in the word
+      displayIdElement("chances", --game.numChances);
+      console.log("'" + letter + "' is NOT in '" + game.currentWord.word + "'");
 
-            }
-          }
-        }
+      if (game.isLost()) {
+        ++game.losses;
+        displayIdElement("losses", game.losses);
+        displayIdElement("message", "You lost!");
+        game.newWord(game.index++);
       }
     }
-  }; // end onkeyup() 
-
-  /*****  FUNCTIONS *****/
-
-  function displayIdElement(which, str) {
-    // make it easy to display elements
-
-    document.getElementById(which).textContent = str;
-
-  } // end displayElement()
+  }; // end onkeyup()
