@@ -38,11 +38,12 @@
       // are displayed during the game.
       //
       document.getElementById("message").style.opacity = "1.0";
-      document.getElementById("startup").style.display = "none";
+      document.getElementById("input").style.display = "none";
       document.getElementById("game-box").style.display = "block";
       this.newWord(this.index++);
-      displayIdElement("wins", game.wins);
-      displayIdElement("losses", game.losses);
+      displayIdElement("wins", this.wins);
+      displayIdElement("losses", this.losses);
+      displayIdElement("guesses", "");
     }, // init()
 
     insertLetter: function (ltr) {
@@ -124,6 +125,8 @@
         console.log("Word: " + this.currentWord.word);
         console.log("Clue: " + this.currentWord.clue);
         console.log("Blanks: " + this.currentWord.blanks);
+        document.getElementById("guesses").value = "";
+        displayIdElement("guesses", "");
         displayIdElement("chances", this.numChances);
         displayIdElement("used-letters", "");
         displayIdElement("clue", this.currentWord.clue);

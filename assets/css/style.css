@@ -24,11 +24,16 @@ h3,
 
 label {
     font-weight: bold;
+    display: block;
 }
 
 /* class */
 .bold {
     font-weight: bold;
+}
+
+.input {
+    display: none;
 }
 
 /* id */
@@ -87,7 +92,7 @@ label {
         opacity: 0.0;
     }
 
-    #startup {
+    .input {
         display: block;
     }
 
