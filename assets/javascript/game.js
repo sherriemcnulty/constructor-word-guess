@@ -38,7 +38,7 @@
       // are displayed during the game.
       //
       document.getElementById("message").style.opacity = "1.0";
-      document.getElementById("input").style.display = "none";
+      document.getElementById("startup").style.display = "none";
       document.getElementById("game-box").style.display = "block";
       this.newWord(this.index++);
       displayIdElement("wins", this.wins);

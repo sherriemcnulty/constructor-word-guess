@@ -11,6 +11,10 @@ body {
     font-size: large;
 }
 
+form {
+    display: none;
+}
+
 input {
     width: 30%;
 }
@@ -30,10 +34,6 @@ label {
 /* class */
 .bold {
     font-weight: bold;
-}
-
-.input {
-    display: none;
 }
 
 /* id */
@@ -83,6 +83,10 @@ label {
         font-size: small;
     }
 
+    form {
+        display: block;
+    }
+
     #container {
         width: 100%;
         padding: 1%;
@@ -90,10 +94,6 @@ label {
 
     #message {
         opacity: 0.0;
-    }
-
-    .input {
-        display: block;
     }
 
 }
