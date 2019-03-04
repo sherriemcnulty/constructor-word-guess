@@ -152,17 +152,7 @@
       // print final score & return if game is over
       //
       document.getElementById("game-box").style.display = "none";
-      if (game.wins > game.losses) {
-        console.log(game.wins + ">" + game.losses);
-        displayIdElement("message", "You won the match!");
-
-      } else if (game.wins < game.losses) {
-        console.log(game.wins + "<" + game.losses);
-        displayIdElement("message", "You lost the match!");
-      } else {
-        console.log(game.wins + "===" + game.losses);
-        displayIdElement("message", "The match was a tie!");
-      }
+      displayIdElement("message", "Game over!");
       return;
     }
 
