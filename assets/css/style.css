@@ -12,11 +12,7 @@ body {
 }
 
 form {
-    display: none;
-}
-
-input {
-    width: 30%;
+    opacity: 0.0;
 }
 
 h1,
@@ -49,6 +45,10 @@ label {
     margin: 0 auto;
     padding: 0 5%;
     width: 66%;
+}
+
+#input {
+    opacity: 0.0;
 }
 
 #message {
@@ -84,7 +84,7 @@ label {
     }
 
     form {
-        display: block;
+        opacity: 1.0;
     }
 
     #container {
