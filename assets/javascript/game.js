@@ -120,11 +120,6 @@
           clue: WORDS[i].clue,
           blanks: WORDS[i].blanks
         }
-        console.log("Begin:");
-        console.log("Index: " + i);
-        console.log("Word: " + this.currentWord.word);
-        console.log("Clue: " + this.currentWord.clue);
-        console.log("Blanks: " + this.currentWord.blanks);
         document.getElementById("guesses").value = "";
         displayIdElement("guesses", "");
         displayIdElement("chances", this.numChances);
@@ -154,7 +149,6 @@
 
     var key = event.key;
 
-    console.log(key + " was pressed.");
     displayIdElement("message", "");
 
     if (game.isOver()) {
@@ -201,7 +195,6 @@
 
     if (game.isInWord(letter)) {
       game.insertLetter(letter);
-      console.log("'" + letter + "' is in the word.");
 
       if (game.isWon()) {
         ++game.wins
@@ -212,7 +205,6 @@
       }
     } else {
       displayIdElement("chances", --game.numChances);
-      console.log("'" + letter + "' is NOT in '" + game.currentWord.word + "'");
 
       if (game.isLost()) {
         ++game.losses;
