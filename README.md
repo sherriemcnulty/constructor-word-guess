@@ -4,10 +4,11 @@
 - [Code](https://github.com/sherriemcnulty/constructor-word-guess)
 - [Readme](https://github.com/sherriemcnulty/constructor-word-guess/blob/master/README.md)
 
-## Introduction
+## Description
 
-This game is like Hangman. It has a finite list of words with corresponding clues. The list is short for testing purposes.
+This is a hangman game using JavaScript constructors.
 
-For each word:
-(1) Given a clue and blanks that represent each character of a word, guess letters that spell the word by pressing letter keys.
-(2) If you guess the word before making six mistakes, you win.
+- You will be given a clue and blanks that represent the number of letters that are in the word. 
+- Given a clue and blanks that represent each character of a word. 
+- Try to spell the word by selecting letters using the keyboard.
+- If you guess the word before making six mistakes, you win.
