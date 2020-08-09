@@ -1,8 +1,8 @@
 # Word Guess Game (using constructors)
 
-[Demo](https://sherriemcnulty.github.io/constructor-word-guess)
-[Code](https://github.com/sherriemcnulty/constructor-word-guess)
-[Readme](https://github.com/sherriemcnulty/constructor-word-guess/blob/master/README.md)
+- [Demo](https://sherriemcnulty.github.io/constructor-word-guess)
+- [Code](https://github.com/sherriemcnulty/constructor-word-guess)
+- [Readme](https://github.com/sherriemcnulty/constructor-word-guess/blob/master/README.md)
 
 ## Introduction
 
