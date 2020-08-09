@@ -3,109 +3,103 @@
 /* element */
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    background: url(../images/jungle.jpg) no-repeat;
-    font-size: large;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+	background: url(../images/jungle.jpg) no-repeat;
+	font-size: large;
 }
 
 form {
-    opacity: 0.0;
+	opacity: 0;
 }
 
 h1,
 h2,
 h3,
 #message {
-    text-align: center;
+	text-align: center;
 }
 
 label {
-    font-weight: bold;
-    display: block;
+	font-weight: bold;
+	display: block;
 }
 
-/* class */
 .bold {
-    font-weight: bold;
+	font-weight: bold;
 }
 
-/* id */
 #container {
-    width: 66%;
-    margin: 10% auto;
-    padding: 2%;
-    background: wheat;
-    border: 3px inset green;
+	width: 66%;
+	margin: 10% auto;
+	padding: 2%;
+	background: wheat;
+	border: 3px inset green;
 }
 
 #game-box {
-    margin: 0 auto;
-    padding: 0 5%;
-    width: 66%;
+	margin: 0 auto;
+	padding: 0 5%;
+	width: 66%;
 }
 
-#input {
-    opacity: 0.0;
+input {
+	opacity: 0;
 }
 
 #message {
-    margin-top: 1%;
-    height: 1.2em;
-    color: red;
+	margin-top: 1%;
+	height: 1.2em;
+	color: red;
 }
 
 #startup-input {
-    display: none;
+	display: none;
 }
 
 @media screen and (max-width: 980px) {
-
-    body {
-        font-size: medium;
-    }
-
+	body {
+		font-size: medium;
+	}
 }
 
 @media screen and (max-width: 768px) {
-
-    #container {
-        width: 90%;
-        margin: 2% auto;
-        padding: 1%;
-    }
+	#container {
+		width: 90%;
+		margin: 2% auto;
+		padding: 1%;
+	}
 }
 
 @media screen and (max-width: 640px) {
-    body {
-        font-size: small;
-    }
+	body {
+		font-size: small;
+	}
 
-    form {
-        opacity: 1.0;
-    }
+	form {
+		opacity: 1;
+	}
 
-    h1 {
-        font-size: 1.0em;
-    }
+	h1 {
+		font-size: 1em;
+	}
 
-    h2 {
-        font-size: 1.1em;
-    }
+	h2 {
+		font-size: 1.1em;
+	}
 
-    h3 {
-        font-size: 1.2em;
-    }
+	h3 {
+		font-size: 1.2em;
+	}
 
-    #container {
-        width: 100%;
-        padding: 1%;
-    }
+	#container {
+		width: 100%;
+		padding: 1%;
+	}
 
-    #message {
-        opacity: 0.0;
-    }
-
+	#message {
+		opacity: 1;
+	}
 }

@@ -1,36 +1,14 @@
 "use strict;";
 
-// Word Constructor
-function Word(word, clue) {
-	this.word = word;
-	this.clue = clue;
-	this.blanks = [];
-	this.printWord = function () {
-		alert(this.word);
-	};
-	this.printClue = function () {
-		alert(this.clue);
-	};
-	this.isInWord = function (letter) {
-		alert(letter);
-	};
-	this.setBlanks = function () {
-		for (let i = 0; i < this.word.length; i++) {
-			this.blanks.push("_ ");
-		}
-		alert("setBlanks: " + this.blanks);
-	};
-	this.printBlanks = function () {
-		alert(this.blanks);
-	};
-}
-const myWord = new Word("test", "this is a test");
-myWord.printWord();
-myWord.printClue();
-myWord.isInWord("t");
-myWord.setBlanks();
-myWord.printBlanks();
+// Test Word constructor
+// const myWord = new Word("test", "this is a test");
+// myWord.printWord();
+// myWord.printClue();
+// myWord.isInWord("t");
+// myWord.setBlanks();
+// myWord.printBlanks();
 
+// Game code
 const MAX_CHANCES = 6;
 const LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const WORDS = [
@@ -68,7 +46,7 @@ var game = (gameObj = {
 
 	init: function () {
 		// The startup message is hidden in the CSS to replace it with a form input to give
-		// access to a keyboard on cell phones.It needs to be set to 1.0 here to show messages that
+		// access to a keyboard on cell phones. It needs to be set to 1.0 here to show messages that
 		// are displayed during the game.
 		//
 		document.getElementById("message").style.opacity = "1.0";
