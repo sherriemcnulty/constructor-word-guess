@@ -4,6 +4,7 @@
 function Word(word, clue) {
 	this.word = word;
 	this.clue = clue;
+	this.blanks = [];
 	this.printWord = function () {
 		alert(this.word);
 	};
@@ -13,11 +14,22 @@ function Word(word, clue) {
 	this.isInWord = function (letter) {
 		alert(letter);
 	};
+	this.setBlanks = function () {
+		for (let i = 0; i < this.word.length; i++) {
+			this.blanks.push("_ ");
+		}
+		alert("setBlanks: " + this.blanks);
+	};
+	this.printBlanks = function () {
+		alert(this.blanks);
+	};
 }
 const myWord = new Word("test", "this is a test");
 myWord.printWord();
 myWord.printClue();
 myWord.isInWord("t");
+myWord.setBlanks();
+myWord.printBlanks();
 
 const MAX_CHANCES = 6;
 const LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
